@@ -1,6 +1,6 @@
 'use strict'
 
-const { emitter, eventPool } = require('./eventPool');
+const { emitter, eventPool } = require('../eventPool');
 
 emitter.emit(eventPool[2], {
   DELIVERED: 'Package Delivered to Client'

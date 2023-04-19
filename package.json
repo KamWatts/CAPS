@@ -2,10 +2,10 @@
   "name": "caps",
   "version": "1.0.0",
   "description": "Postal Service app that utilizes Event-Driven Programming",
-  "main": "events.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node events.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "jest --verbose --coverage"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,9 @@
   "dependencies": {
     "events": "^3.3.0",
     "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
     "supergoose": "^0.2.6"
   }
 }
