@@ -39,6 +39,7 @@ emitter.on(mileEvent, function(payload){
 })
 
 require('./driver.js');
+require('./vendor.js');
 // function handlePackagePickup(packageId) {
 //   // Find the package in the packages array and update its status to "in transit"
 
