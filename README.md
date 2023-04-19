@@ -13,3 +13,8 @@ Using the emitter functionality to send messages between the server and its clie
 Implementing Socket.io protocols to handle real-time bi-directional communication between the server and its clients
 
 ![Day 2](./phase2.png)
+
+
+## Phase 3 UML
+
+![Day 3](./phase3.png)
