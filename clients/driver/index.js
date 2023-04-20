@@ -5,6 +5,7 @@ const SERVER_URL = process.env.SERVER_URL || 'http://localhost:3001'
 
 let socket = io('http://localhost:3001');
 
+
 socket.on('message', (payload) => {
   console.log('payload from server', payload);
   
