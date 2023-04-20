@@ -1,5 +1,6 @@
 'use strict'
 const { Server } = require('socket.io');
+const MessageQueue = require('../clients/lib/MessageQueue');
 const PORT = process.env.PORT || 3001;
 
 const io = new Server(PORT);
@@ -33,9 +34,23 @@ socket.on('in-transit', (payload) => {
   capsServer.to(payload.store).emit('in-transit', payload)
 }),
 
-socket.on('delivered', () => { }),
+socket.on('delivered', (payload) => { 
+  let storeQueue = pickupQueue.read(payload.store);
+  let order = storeQueue.remove(payload.orderId);
+  let storeDelivered = deliveryQueue.store(order.store, newStoreDelivered);
+  if (storeDelivered) {
+    storeDelivered.store(order.orderId, newStoreDelivered);
+  } else {
+    let newStoreDelivered = new MessageQueue();
+    newStoreDelivered.store(order.orderid, order)
+    deliveryQueue.store(order.store, newStoreDelivered);
+  }
+  capsServer.to(payload.store).emit('delivered', payload);
+}),
 
-socket.on('received', () => { }),
+socket.on('received', (payload) => { 
+  console.log(payload);
+}),
 
 })
 
