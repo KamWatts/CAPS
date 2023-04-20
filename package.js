@@ -1,3 +1,6 @@
+'use strict'
+
+
 // Create an object to hold your state
 const state = {
   packages: [],
