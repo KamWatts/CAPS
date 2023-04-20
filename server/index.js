@@ -4,18 +4,41 @@ const PORT = process.env.PORT || 3001;
 
 const io = new Server(PORT);
 
-io.on('connection', (socket) => {
-  console.log('Client has been connected', socket.id);
+let messages = io.of('/messages');
+let inbox = new MessageQueue();
 
-  socket.on('message', (payload) => {
-  socket.emit('message', payload)
-  });
+messages.on('connection', (socket) => {
 
-  socket.on('package', (payload) => {
-    socket.emit('package'), payload
-  });
+  socket.on('send', (payload) => {
 
-  socket.on('delivered', (payload) => {
-    socket.emit('delivered'), payload
-  });
+    if(inbox.read(payload.recipientId)) {
+      
+    }
+    inbox.store(payload);
+    socket.emit('send', payload);
+  }),
+
+  socket.on('getMessages', (payload) => {
+    let messages = inbox.read(payload.recipientId);
+    socket.emit('getMessages', message);
+  })
+  socket.on('received', (payload) => {
+    let message = inbox.remove(payload.recipientId);
+  })
+
 });
+// io.on('connection', (socket) => {
+//   console.log('Client has been connected', socket.id);
+
+//   socket.on('message', (payload) => {
+//   socket.emit('message', payload)
+//   });
+
+//   socket.on('package', (payload) => {
+//     socket.emit('package'), payload
+//   });
+
+//   socket.on('delivered', (payload) => {
+//     socket.emit('delivered'), payload
+//     })
+//   })
